@@ -8,13 +8,10 @@ type PropsType = {
     col: number;
 };
 
-// // ヘッダ部コンポーネント
-// const fixedHeaderContent = (data: RandomData[]) => {
-//     return <tr>{data.length > 0 && Object.keys(data[0]).map((key, index) => <th key={index}>{key}</th>)}</tr>;
-// };
-
 // ボディ部コンポーネント
-const itemContent = (idx: number, rowData: RandomData) => {
+const itemContent = (_: number, rowData: RandomData) => {
+    console.log("tr!!"); // レンダリング確認用
+
     return (
         <>
             {Object.keys(rowData).map((key, cellIndex) => (
@@ -45,6 +42,19 @@ export const Table: FC<PropsType> = ({ row, col }) => {
         setData(createRandomData(row, col)); // 行数、チェックボックス数
     }, []);
 
+    // ヘッダ部コンポーネント
+    // memo: dataにはクロージャでアクセス
+    const fixedHeaderContent = () => {
+        // prettier-ignore
+        return (
+        <tr>
+            {data.length > 0 && Object.keys(data[0]).map((key, index) =>
+                <th key={index}>{key}</th>
+            )}
+        </tr>
+    )
+    };
+
     // // セルのvalueのアップデートハンドラ
     // const handleUpdate = (rowIndex: number, key: string, newValue: string | boolean) => {
     //     const updatedData = [...data];
@@ -57,9 +67,7 @@ export const Table: FC<PropsType> = ({ row, col }) => {
             <TableVirtuoso
                 data={data}
                 totalCount={data.length}
-                // fixedHeaderContent={() => {
-                //     fixedHeaderContent(data);
-                // }}
+                fixedHeaderContent={fixedHeaderContent}
                 itemContent={itemContent}
             ></TableVirtuoso>
         </div>
