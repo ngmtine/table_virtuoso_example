@@ -24,7 +24,11 @@ export const Table: FC<PropsType> = ({ row, col }) => {
                 {data.map((item, rowIndex) => (
                     <tr key={rowIndex}>
                         {Object.keys(item).map((key, index) => (
-                            <TableCell key={index} value={item[key]} type={key === "name" ? "text" : "checkbox"} />
+                            <TableCell
+                                key={index}
+                                value={item[key]}
+                                type={key === "name" ? "text" : "checkbox"}
+                            />
                         ))}
                     </tr>
                 ))}

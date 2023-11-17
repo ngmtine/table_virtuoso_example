@@ -13,7 +13,10 @@ function App() {
                 <span>{"　　　"}</span>
                 <span>要素数：{row * col}</span>
             </div>
-            <Table row={row} col={col} />
+            <Table
+                row={row}
+                col={col}
+            />
         </>
     );
 }
