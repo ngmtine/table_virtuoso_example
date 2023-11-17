@@ -3,11 +3,14 @@ import { TableCell } from "./TableCell";
 import { RandomData, createRandomData } from "../util";
 import "../style.css";
 
+// propsの型
 type PropsType = {
     row: number;
     col: number;
 };
 
+// テーブルコンポーネント
+// todo: 初期値と違う場合にセルの背景色を変更する
 export const Table: FC<PropsType> = ({ row, col }) => {
     const [data, setData] = useState<RandomData[]>([]);
 

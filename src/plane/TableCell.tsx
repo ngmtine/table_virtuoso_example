@@ -7,7 +7,7 @@ interface PropsType {
 }
 
 export const TableCell: React.FC<PropsType> = ({ initialValue, type, onUpdate }) => {
-    console.log("cell!"); // レンダリング確認用
+    // console.log("cell!"); // レンダリング確認用
 
     const [value, setValue] = useState(initialValue);
 
