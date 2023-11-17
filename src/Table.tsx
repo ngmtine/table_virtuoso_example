@@ -1,4 +1,5 @@
 import { useState, useEffect, FC } from "react";
+import { TableCell } from "./TableCell";
 import { RandomData, createRandomData } from "./util";
 import "./style.css";
 
@@ -18,7 +19,7 @@ const Table: FC = () => {
                 {data.map((item, rowIndex) => (
                     <tr key={rowIndex}>
                         {Object.keys(item).map((key, index) => (
-                            <td key={index}>{key === "name" ? <input type="text" value={item[key] as string} readOnly /> : <input type="checkbox" checked={item[key] as boolean} readOnly />}</td>
+                            <TableCell key={index} value={item[key]} type={key === "name" ? "text" : "checkbox"} />
                         ))}
                     </tr>
                 ))}
