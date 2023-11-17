@@ -1,24 +1,18 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Plane } from "./plane/Plane";
 import "./App.css";
-import { Table } from "./component/Table";
 
-function App() {
-    const row = 100;
-    const col = 50;
+const App = () => {
     return (
-        <>
-            <div>
-                <span>行数：{row}</span>
-                <span>{"　　　"}</span>
-                <span>列数：{col}</span>
-                <span>{"　　　"}</span>
-                <span>要素数：{row * col}</span>
-            </div>
-            <Table
-                row={row}
-                col={col}
-            />
-        </>
+        <BrowserRouter>
+            <Routes>
+                <Route
+                    path="plane"
+                    element={<Plane />}
+                />
+            </Routes>
+        </BrowserRouter>
     );
-}
+};
 
 export default App;
