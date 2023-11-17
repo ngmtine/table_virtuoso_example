@@ -24,7 +24,7 @@ export const Table: FC<PropsType> = ({ row, col }) => {
     };
 
     return (
-        <table>
+        <table style={{ overflowY: "auto" }}>
             <thead>
                 <tr>{data.length > 0 && Object.keys(data[0]).map((key, index) => <th key={index}>{key}</th>)}</tr>
             </thead>
