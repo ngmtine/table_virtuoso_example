@@ -1,5 +1,5 @@
 import "./App.css";
-import { Table } from "./Table";
+import { Table } from "./component/Table";
 
 function App() {
     const row = 100;

@@ -1,7 +1,7 @@
 import { useState, useEffect, FC } from "react";
 import { TableCell } from "./TableCell";
-import { RandomData, createRandomData } from "./util";
-import "./style.css";
+import { RandomData, createRandomData } from "../util";
+import "../style.css";
 
 type PropsType = {
     row: number;
