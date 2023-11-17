@@ -1,4 +1,4 @@
 export const globalData = {
-    row: 100,
+    row: 1000,
     col: 50,
 };

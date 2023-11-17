@@ -19,35 +19,37 @@ export type HandleUpdateArgs = {
 
 // テーブルコンポーネント
 export const Table: FC<PropsType> = ({ row, col }) => {
-    const [data, setData] = useState<RandomData[]>([]);
+    const [currentData, setCurrentData] = useState<RandomData[]>([]);
+    const [initialData, setInitialData] = useState<RandomData[]>([]);
 
     // コンポーネントマウント時データ初期化
     useEffect(() => {
-        setData(createRandomData(row, col));
+        const data = createRandomData(row, col);
+        setCurrentData(data);
+        setInitialData(data);
     }, []);
 
     // データ更新ハンドラ
     const handleUpdate = ({ rowIdx, keyName, newValue }: HandleUpdateArgs) => {
-        const updatedData = [...data];
+        const updatedData = [...currentData];
         updatedData[rowIdx] = { ...updatedData[rowIdx], [keyName]: newValue };
-        setData(updatedData);
+        setCurrentData(updatedData);
     };
 
     // ヘッダ部コンポーネント
-    // memo: dataはクロージャでアクセス
     const fixedHeaderContent = () => {
+        // memo: currentDataはクロージャでアクセス
         // prettier-ignore
         return (
-        <tr>
-            {data.length > 0 && Object.keys(data[0]).map((key, index) =>
-                <th key={index}>{key}</th>
-            )}
-        </tr>
-    )
+            <tr>
+                {currentData.length > 0 && Object.keys(currentData[0]).map((key, index) =>
+                    <th key={index}>{key}</th>
+                )}
+            </tr>
+        )
     };
 
     // ボディ部コンポーネント
-    // memo: handleUpdateはクロージャでアクセス
     const itemContent = (idx: number, rowData: RandomData) => {
         return (
             <>
@@ -57,7 +59,8 @@ export const Table: FC<PropsType> = ({ row, col }) => {
                         rowData={rowData}
                         rowIdx={idx}
                         keyName={key}
-                        handleUpdate={handleUpdate}
+                        handleUpdate={handleUpdate} // memo: handleUpdateはクロージャでアクセス
+                        initialData={initialData}
                     />
                 ))}
             </>
@@ -67,8 +70,8 @@ export const Table: FC<PropsType> = ({ row, col }) => {
     return (
         <div style={{ height: "90vh", width: "70vh" }}>
             <TableVirtuoso
-                data={data}
-                totalCount={data.length}
+                data={currentData}
+                totalCount={currentData.length}
                 fixedHeaderContent={fixedHeaderContent}
                 itemContent={itemContent}
             ></TableVirtuoso>

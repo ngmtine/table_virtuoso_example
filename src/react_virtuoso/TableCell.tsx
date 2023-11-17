@@ -1,28 +1,35 @@
-import React from "react";
+import { FC, ChangeEvent } from "react";
 import { RandomData } from "../util";
 import { HandleUpdateArgs } from "./Table";
 
+// セルコンポーネントのpropsの型
 type TableCellProps = {
     keyName: string;
     rowData: RandomData;
     rowIdx: number;
     handleUpdate: ({ rowIdx, keyName, newValue }: HandleUpdateArgs) => void;
+    initialData: RandomData[];
 };
 
-export const TableCell: React.FC<TableCellProps> = ({ keyName, rowData, rowIdx, handleUpdate }) => {
+// セルコンポーネント
+export const TableCell: FC<TableCellProps> = ({ keyName, rowData, rowIdx, handleUpdate, initialData }) => {
     // console.log("td!!"); // レンダリング確認用
 
     // セルの値取得
     const value = rowData[keyName];
+    const initialValue = initialData[rowIdx]?.[keyName] ?? "";
 
     // セル編集時イベント
-    const handleCange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleCange = (e: ChangeEvent<HTMLInputElement>) => {
         const newValue = typeof value === "boolean" ? e.target.checked : e.target.value;
         handleUpdate({ rowIdx, keyName, newValue });
     };
 
+    // 初期値と現在値が異なる場合は背景色をピンクに設定
+    const cellStyle = initialValue !== value ? { backgroundColor: "pink" } : {};
+
     return (
-        <td>
+        <td style={cellStyle}>
             {typeof value === "boolean" ?
                 <input
                     type="checkbox"
