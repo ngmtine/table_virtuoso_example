@@ -1,6 +1,7 @@
 import { useState, useEffect, FC } from "react";
 import { RandomData, createRandomData } from "../util";
 import { TableVirtuoso } from "react-virtuoso";
+import { TableCell } from "./TableCell";
 import "../style.css";
 
 type PropsType = {
@@ -10,25 +11,14 @@ type PropsType = {
 
 // ボディ部コンポーネント
 const itemContent = (_: number, rowData: RandomData) => {
-    console.log("tr!!"); // レンダリング確認用
-
     return (
         <>
-            {Object.keys(rowData).map((key, cellIndex) => (
-                <td key={cellIndex}>
-                    {typeof rowData[key] === "boolean" ?
-                        <input
-                            type="checkbox"
-                            checked={rowData[key] as boolean}
-                            readOnly
-                        />
-                    :   <input
-                            type="text"
-                            value={rowData[key] as string}
-                            readOnly
-                        />
-                    }
-                </td>
+            {Object.keys(rowData).map((key) => (
+                <TableCell
+                    key={key}
+                    keyName={key}
+                    rowData={rowData}
+                />
             ))}
         </>
     );
