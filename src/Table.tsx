@@ -3,11 +3,16 @@ import { TableCell } from "./TableCell";
 import { RandomData, createRandomData } from "./util";
 import "./style.css";
 
-const Table: FC = () => {
+type PropsType = {
+    row: number;
+    col: number;
+};
+
+export const Table: FC<PropsType> = ({ row, col }) => {
     const [data, setData] = useState<RandomData[]>([]);
 
     useEffect(() => {
-        setData(createRandomData(500, 50)); // 行数、チェックボックス数
+        setData(createRandomData(row, col)); // 行数、チェックボックス数
     }, []);
 
     return (
@@ -27,5 +32,3 @@ const Table: FC = () => {
         </table>
     );
 };
-
-export default Table;
