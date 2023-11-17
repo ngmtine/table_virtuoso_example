@@ -4,36 +4,37 @@ import { TableVirtuoso } from "react-virtuoso";
 import { TableCell } from "./TableCell";
 import "../style.css";
 
+// テーブルコンポーネントのpropsの型
 type PropsType = {
-    row: number;
-    col: number;
+    row: number; // 行数
+    col: number; // 列数
 };
 
-// ボディ部コンポーネント
-const itemContent = (_: number, rowData: RandomData) => {
-    return (
-        <>
-            {Object.keys(rowData).map((key) => (
-                <TableCell
-                    key={key}
-                    keyName={key}
-                    rowData={rowData}
-                />
-            ))}
-        </>
-    );
+// HandleUpdateの引数の型
+export type HandleUpdateArgs = {
+    rowIdx: number;
+    keyName: string;
+    newValue: string | boolean;
 };
 
+// テーブルコンポーネント
 export const Table: FC<PropsType> = ({ row, col }) => {
     const [data, setData] = useState<RandomData[]>([]);
 
     // コンポーネントマウント時データ初期化
     useEffect(() => {
-        setData(createRandomData(row, col)); // 行数、チェックボックス数
+        setData(createRandomData(row, col));
     }, []);
 
+    // データ更新ハンドラ
+    const handleUpdate = ({ rowIdx, keyName, newValue }: HandleUpdateArgs) => {
+        const updatedData = [...data];
+        updatedData[rowIdx] = { ...updatedData[rowIdx], [keyName]: newValue };
+        setData(updatedData);
+    };
+
     // ヘッダ部コンポーネント
-    // memo: dataにはクロージャでアクセス
+    // memo: dataはクロージャでアクセス
     const fixedHeaderContent = () => {
         // prettier-ignore
         return (
@@ -45,12 +46,23 @@ export const Table: FC<PropsType> = ({ row, col }) => {
     )
     };
 
-    // // セルのvalueのアップデートハンドラ
-    // const handleUpdate = (rowIndex: number, key: string, newValue: string | boolean) => {
-    //     const updatedData = [...data];
-    //     updatedData[rowIndex] = { ...updatedData[rowIndex], [key]: newValue };
-    //     setData(updatedData);
-    // };
+    // ボディ部コンポーネント
+    // memo: handleUpdateはクロージャでアクセス
+    const itemContent = (idx: number, rowData: RandomData) => {
+        return (
+            <>
+                {Object.keys(rowData).map((key) => (
+                    <TableCell
+                        key={key}
+                        rowData={rowData}
+                        rowIdx={idx}
+                        keyName={key}
+                        handleUpdate={handleUpdate}
+                    />
+                ))}
+            </>
+        );
+    };
 
     return (
         <div style={{ height: "90vh", width: "70vh" }}>
