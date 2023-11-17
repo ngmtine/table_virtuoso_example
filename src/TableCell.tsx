@@ -1,23 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 
-interface TableCellProps {
-    value: string | boolean;
+interface PropsType {
+    initialValue: string | boolean;
     type: "text" | "checkbox";
+    onUpdate: (newValue: string | boolean) => void;
 }
 
-export const TableCell: React.FC<TableCellProps> = ({ value, type }) => {
+export const TableCell: React.FC<PropsType> = ({ initialValue, type, onUpdate }) => {
+    console.log("cell!"); // レンダリング確認用
+
+    const [value, setValue] = useState(initialValue);
+
+    // セル編集ハンドラ
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newValue = type === "text" ? e.target.value : e.target.checked;
+        setValue(newValue);
+        onUpdate(newValue);
+    };
+
     return (
         <td>
             {type === "text" ?
                 <input
                     type="text"
                     value={value as string}
-                    readOnly
+                    onChange={handleChange}
                 />
             :   <input
                     type="checkbox"
                     checked={value as boolean}
-                    readOnly
+                    onChange={handleChange}
                 />
             }
         </td>

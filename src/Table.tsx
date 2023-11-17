@@ -11,9 +11,17 @@ type PropsType = {
 export const Table: FC<PropsType> = ({ row, col }) => {
     const [data, setData] = useState<RandomData[]>([]);
 
+    // コンポーネントマウント時データ初期化
     useEffect(() => {
         setData(createRandomData(row, col)); // 行数、チェックボックス数
     }, []);
+
+    // セルのvalueのアップデートハンドラ
+    const handleUpdate = (rowIndex: number, key: string, newValue: string | boolean) => {
+        const updatedData = [...data];
+        updatedData[rowIndex] = { ...updatedData[rowIndex], [key]: newValue };
+        setData(updatedData);
+    };
 
     return (
         <table>
@@ -21,13 +29,14 @@ export const Table: FC<PropsType> = ({ row, col }) => {
                 <tr>{data.length > 0 && Object.keys(data[0]).map((key, index) => <th key={index}>{key}</th>)}</tr>
             </thead>
             <tbody>
-                {data.map((item, rowIndex) => (
+                {data.map((row, rowIndex) => (
                     <tr key={rowIndex}>
-                        {Object.keys(item).map((key, index) => (
+                        {Object.keys(row).map((key, index) => (
                             <TableCell
                                 key={index}
-                                value={item[key]}
+                                initialValue={row[key]}
                                 type={key === "name" ? "text" : "checkbox"}
+                                onUpdate={(newValue) => handleUpdate(rowIndex, key, newValue)}
                             />
                         ))}
                     </tr>
