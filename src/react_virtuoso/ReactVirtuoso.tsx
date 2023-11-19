@@ -6,7 +6,7 @@ import { EditFilterButton } from "./EditFilterButton";
 
 const comment = "react-virtuoso";
 
-export const Virtuoso = () => {
+export const ReactVirtuoso = () => {
     // テーブルの行数、列数
     const { row, col } = globalData;
 

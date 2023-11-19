@@ -1,20 +1,45 @@
-export const Root = () => {
+import { useState, CSSProperties } from "react";
+import { ReactPlane } from "../react_plane/ReactPlane";
+import { ReactVirtuoso } from "../react_virtuoso/ReactVirtuoso";
+
+type PageType = "Menu" | "ReactPlane" | "ReactVirtuoso";
+
+const Menu = ({ setPage }: { setPage: (page: PageType) => void }) => {
+    const clickableStyle: CSSProperties = {
+        textAlign: "left",
+        cursor: "pointer",
+        textDecoration: "underline",
+    };
+
     return (
         <>
             <div>るーとぺーじ</div>
-            <div>
-                <ul>
-                    <li style={{ textAlign: "left" }}>
-                        <a href="/plane">プレーンテーブル実装例（reactも仮想スクロールライブラリも不使用）</a>
-                    </li>
-                    <li style={{ textAlign: "left" }}>
-                        <a href="/planereact">プレーンなreactでのテーブル実装例（仮想スクロールライブラリ不使用）</a>
-                    </li>
-                    <li style={{ textAlign: "left" }}>
-                        <a href="/virtuoso">rect-virtuoso 実装例</a>
-                    </li>
-                </ul>
-            </div>
+            <ul>
+                <li
+                    style={clickableStyle}
+                    onClick={() => setPage("ReactPlane")}
+                >
+                    プレーンなreactでのテーブル実装例（仮想スクロールライブラリ不使用）
+                </li>
+                <li
+                    style={clickableStyle}
+                    onClick={() => setPage("ReactVirtuoso")}
+                >
+                    rect-virtuoso 実装例
+                </li>
+            </ul>
         </>
     );
+};
+
+export const Root = () => {
+    const [page, setPage] = useState<PageType>("Menu");
+
+    if (page === "Menu") {
+        return <Menu setPage={setPage} />;
+    } else if (page === "ReactPlane") {
+        return <ReactPlane />;
+    } else if (page === "ReactVirtuoso") {
+        return <ReactVirtuoso />;
+    }
 };
