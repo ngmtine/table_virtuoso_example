@@ -1,13 +1,14 @@
-import { FC } from "react";
+import { CSSProperties, FC } from "react";
 
 type PropsType = {
     row: number;
     col: number;
+    style?: CSSProperties;
 };
 
-export const CellCounter: FC<PropsType> = ({ row, col }) => {
+export const CellCounter: FC<PropsType> = ({ row, col, style }) => {
     return (
-        <div>
+        <div style={style}>
             <span>行数：{row}</span>
             <span>{"　　　"}</span>
             <span>列数：{col}</span>

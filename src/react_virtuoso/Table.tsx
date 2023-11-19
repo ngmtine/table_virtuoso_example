@@ -8,6 +8,7 @@ import "../style.css";
 type PropsType = {
     row: number; // 行数
     col: number; // 列数
+    isShowEditedOnly: boolean; // trueなら編集済みの行のみ表示
 };
 
 // HandleUpdateの引数の型
@@ -18,7 +19,7 @@ export type HandleUpdateArgs = {
 };
 
 // テーブルコンポーネント
-export const Table: FC<PropsType> = ({ row, col }) => {
+export const Table: FC<PropsType> = ({ row, col, isShowEditedOnly }) => {
     const [currentData, setCurrentData] = useState<RandomData[]>([]);
     const [initialData, setInitialData] = useState<RandomData[]>([]);
 
@@ -35,6 +36,15 @@ export const Table: FC<PropsType> = ({ row, col }) => {
         updatedData[rowIdx] = { ...updatedData[rowIdx], [keyName]: newValue };
         setCurrentData(updatedData);
     };
+
+    // 編集済みの行を判断する関数
+    const isRowEdited = (row: RandomData, initialRow: RandomData) => {
+        return Object.keys(row).some((key) => row[key] !== initialRow[key]);
+    };
+
+    // 表示するデータのフィルタリング
+    const filteredData =
+        isShowEditedOnly ? currentData.filter((row, idx) => isRowEdited(row, initialData[idx])) : currentData;
 
     // ヘッダ部コンポーネント
     const fixedHeaderContent = () => {
@@ -70,8 +80,8 @@ export const Table: FC<PropsType> = ({ row, col }) => {
     return (
         <div style={{ height: "90vh", width: "70vh" }}>
             <TableVirtuoso
-                data={currentData}
-                totalCount={currentData.length}
+                data={filteredData}
+                totalCount={filteredData.length}
                 fixedHeaderContent={fixedHeaderContent}
                 itemContent={itemContent}
             ></TableVirtuoso>
