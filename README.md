@@ -6,10 +6,14 @@ react-virtuosoを使用することで、そこそこ軽い使用感を得られ
 
 When you have a large, editable dataset in a table (meaning each table cell contains an input element), implementing it with plain React can get pretty heavy. By using react-virtuoso, we were able to achieve a reasonably light user experience, which we are quite happy with.
 
-# 起動
+# run
 
 ```
 git clone
 npm i
 npm run dev
 ```
+
+# sample
+
+[sample page](https://ngmtine.github.io/table_virtuoso_example)
