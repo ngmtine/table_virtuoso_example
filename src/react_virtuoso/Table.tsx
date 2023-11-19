@@ -60,7 +60,7 @@ export const Table: FC<PropsType> = ({ row, col, isShowEditedOnly }) => {
     };
 
     // ボディ部コンポーネント
-    const itemContent = (idx: number, rowData: RandomData) => {
+    const itemContent = (_: number, rowData: RandomData) => {
         // フィルタリングされたデータセット内の実際の行インデックスを取得
         const realIdx = currentData.findIndex((row) => row === rowData);
 
