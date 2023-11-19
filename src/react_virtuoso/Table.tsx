@@ -70,11 +70,10 @@ export const Table: FC<PropsType> = ({ row, col, isShowEditedOnly }) => {
                     <TableCell
                         key={key}
                         rowData={rowData}
-                        rowIdx={idx}
+                        rowIdx={realIdx}
                         keyName={key}
                         handleUpdate={handleUpdate} // memo: handleUpdateはクロージャでアクセス
                         initialData={initialData}
-                        realIdx={realIdx}
                     />
                 ))}
             </>

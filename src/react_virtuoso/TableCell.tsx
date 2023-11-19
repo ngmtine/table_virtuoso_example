@@ -4,21 +4,20 @@ import { HandleUpdateArgs } from "./Table";
 
 // セルコンポーネントのpropsの型
 type TableCellProps = {
-    keyName: string;
-    rowData: RandomData;
-    rowIdx: number;
-    handleUpdate: ({ rowIdx, keyName, newValue }: HandleUpdateArgs) => void;
-    initialData: RandomData[];
-    realIdx: number;
+    keyName: string; // カラム名
+    rowData: RandomData; // 行データ
+    rowIdx: number; // 行インデックス
+    handleUpdate: ({ rowIdx, keyName, newValue }: HandleUpdateArgs) => void; // セル編集時に実行されるハンドラ
+    initialData: RandomData[]; // data取得直後のデータ
 };
 
 // セルコンポーネント
-export const TableCell: FC<TableCellProps> = ({ keyName, rowData, rowIdx, handleUpdate, initialData, realIdx }) => {
+export const TableCell: FC<TableCellProps> = ({ keyName, rowData, rowIdx, handleUpdate, initialData }) => {
     // console.log("td!!"); // レンダリング確認用
 
     // セルの値取得
     const value = rowData[keyName];
-    const initialValue = initialData[realIdx]?.[keyName] ?? "";
+    const initialValue = initialData[rowIdx]?.[keyName] ?? "";
 
     // セル編集時イベント
     const handleCange = (e: ChangeEvent<HTMLInputElement>) => {
