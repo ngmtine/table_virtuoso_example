@@ -72,8 +72,8 @@ export const Table: FC<PropsType> = ({ row, col, isShowEditedOnly }) => {
                         rowData={rowData}
                         rowIdx={realIdx}
                         keyName={key}
-                        handleUpdate={handleUpdate} // memo: handleUpdateはクロージャでアクセス
-                        initialData={initialData}
+                        handleUpdate={handleUpdate} // memo: クロージャでアクセス
+                        initialData={initialData} // memo: クロージャでアクセス
                     />
                 ))}
             </>
