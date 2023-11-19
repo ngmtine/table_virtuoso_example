@@ -9,15 +9,16 @@ type TableCellProps = {
     rowIdx: number;
     handleUpdate: ({ rowIdx, keyName, newValue }: HandleUpdateArgs) => void;
     initialData: RandomData[];
+    realIdx: number;
 };
 
 // セルコンポーネント
-export const TableCell: FC<TableCellProps> = ({ keyName, rowData, rowIdx, handleUpdate, initialData }) => {
+export const TableCell: FC<TableCellProps> = ({ keyName, rowData, rowIdx, handleUpdate, initialData, realIdx }) => {
     // console.log("td!!"); // レンダリング確認用
 
     // セルの値取得
     const value = rowData[keyName];
-    const initialValue = initialData[rowIdx]?.[keyName] ?? "";
+    const initialValue = initialData[realIdx]?.[keyName] ?? "";
 
     // セル編集時イベント
     const handleCange = (e: ChangeEvent<HTMLInputElement>) => {

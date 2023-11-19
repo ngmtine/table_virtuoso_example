@@ -61,6 +61,9 @@ export const Table: FC<PropsType> = ({ row, col, isShowEditedOnly }) => {
 
     // ボディ部コンポーネント
     const itemContent = (idx: number, rowData: RandomData) => {
+        // フィルタリングされたデータセット内の実際の行インデックスを取得
+        const realIdx = currentData.findIndex((row) => row === rowData);
+
         return (
             <>
                 {Object.keys(rowData).map((key) => (
@@ -71,6 +74,7 @@ export const Table: FC<PropsType> = ({ row, col, isShowEditedOnly }) => {
                         keyName={key}
                         handleUpdate={handleUpdate} // memo: handleUpdateはクロージャでアクセス
                         initialData={initialData}
+                        realIdx={realIdx}
                     />
                 ))}
             </>
