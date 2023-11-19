@@ -4,10 +4,13 @@ export const Root = () => {
             <div>るーとぺーじ</div>
             <div>
                 <ul>
-                    <li>
-                        <a href="/plane">プレーンテーブル実装例（仮想スクロールライブラリ不使用）</a>
+                    <li style={{ textAlign: "left" }}>
+                        <a href="/plane">プレーンテーブル実装例（reactも仮想スクロールライブラリも不使用）</a>
                     </li>
-                    <li>
+                    <li style={{ textAlign: "left" }}>
+                        <a href="/planereact">プレーンなreactでのテーブル実装例（仮想スクロールライブラリ不使用）</a>
+                    </li>
+                    <li style={{ textAlign: "left" }}>
                         <a href="/virtuoso">rect-virtuoso 実装例</a>
                     </li>
                 </ul>

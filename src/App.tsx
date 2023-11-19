@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Plane } from "./plane/Plane";
+import { ReactPlane } from "./react_plane/ReactPlane";
 import { Virtuoso } from "./react_virtuoso/Virtuoso";
 import { Root } from "./root/Root";
 import "./App.css";
@@ -18,6 +19,12 @@ const App = () => {
                 <Route
                     path="plane"
                     element={<Plane />}
+                />
+
+                {/* プレーンreact実装ページ */}
+                <Route
+                    path="planereact"
+                    element={<ReactPlane />}
                 />
 
                 {/* react-virtuoso実装ページ */}
