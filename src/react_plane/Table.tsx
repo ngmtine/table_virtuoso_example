@@ -67,7 +67,7 @@ export const Table: FC<PropsType> = ({ row, col, isShowEditedOnly }) => {
     };
 
     return (
-        <div style={{ height: "90vh", width: "70vh" }}>
+        <div style={{ height: "90vh", width: "70vh", overflow: "auto" }}>
             <table>
                 <thead>
                     <tr>
